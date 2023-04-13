@@ -1,0 +1,39 @@
+import requests 
+
+def menu():
+  escolha = str(input("Verificar mais um site s/n?")).lower()
+  if escolha == 's':
+    main()
+  elif escolha == 'n':
+    print ("Programa Encerrado - Feito por Nicolas Senger (Maratona Python)")
+    return
+  else:
+    print ("Opção Inválida")
+    menu()
+
+def main ():
+  #Boas vindas
+  print('Insira um site para verificar:')
+
+  #URL (input)
+  urls = str(input()).lower().split(",")
+  
+  
+  for url in urls:
+    url = url.strip()
+    if "." not in url:
+      print (url, "URL INVÁLIDA")
+  else: 
+    if "http" not in url:
+      url = f"http://{url}"
+      try:
+        requisicao = requests.get(url)
+        if requisicao.status_code == 200:
+          print (url, "Site online!")
+        else:
+          print (url, "Site Offline!")
+      except:
+        print (url, "Erro!")
+  menu()
+
+main()
